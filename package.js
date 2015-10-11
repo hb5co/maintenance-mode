@@ -12,15 +12,30 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.2');
-  api.use('ecmascript');
-  api.use('mongo');
-  api.use('alanning:roles@1.2.14', ['client', 'server']);
-  api.addFiles('maintenance-mode.js');
+
+  // For adding packages and files to client and server.
+  var both = ['client', 'server'];
+
+  // Meteor core package dependencies.
+  api.use([
+    'ecmascript',
+    'mongo'
+    ], both);
+
+  // Meteor community package dependencies.
+  api.use(['alanning:roles@1.2.14'], both);
+
+  // Required files for the server.
+  api.addFiles([
+    'lib/startup.js',
+    'lib/methods/maintModeStatus.js',
+    'lib/publications/maintMode.js'
+    ], 'server');
+
+  api.addFiles([
+    'lib/collections/maintMode.js'
+    ], both);
 });
 
 Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
-  api.use('hb5:maintenance-mode');
-  api.addFiles('maintenance-mode-tests.js');
 });
