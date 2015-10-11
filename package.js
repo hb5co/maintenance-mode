@@ -13,6 +13,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.2');
   api.use('ecmascript');
+  api.use('alanning:roles@1.2.14', ['client', 'server']);
   api.addFiles('maintenance-mode.js');
 });
 
